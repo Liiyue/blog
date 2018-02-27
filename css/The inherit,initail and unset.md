@@ -8,7 +8,7 @@
 
 ###### 浏览器兼容性
 
-![inherit](/Users/yinliyue/Desktop/inherit.png)
+![inherit]('https://github.com/meily1991/blog/blob/master/pics/css-inherit.png')
 
 ###### 默认可继承属性
 
@@ -24,7 +24,7 @@
 
 ###### 浏览器兼容性
 
-![css-initial](/Users/yinliyue/Desktop/css-initial.png)
+![css-initial](https://github.com/meily1991/blog/blob/master/pics/css-inherit.png)
 
 
 
