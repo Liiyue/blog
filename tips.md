@@ -24,6 +24,9 @@
   | .     | 匹配除换行符 \n 之外的任何单字符。         |
   | [\w-] | 匹配任意字母和符号- (减号)             |
 
++ Array.prototype.toString()
+
+  toString()方法返回一个字符串，该字符串由数组中每个元素的`toString()`返回值经调用`join()`方法连接组成。
 
 
 ### CSS
@@ -64,6 +67,10 @@
     > The 'visible' value when used for the viewport must be interpreted as 'auto'. 
 
   + Overflow:scroll;内容会被裁剪
+
++ Display:none;与visibility:hidden;的区别
+
+  + Display:none;会让元素从渲染
 
 ### Regular
 
@@ -144,6 +151,10 @@
 
   ​
 
+### VSCode插件
+
++ [Jumpy](https://marketplace.visualstudio.com/items?itemName=wmaurer.vscode-jumpy) — 不用鼠标快速移动光标
+
 ### 其他
 
 + json支持注释： json5
@@ -155,4 +166,31 @@
   ```
 
   ​
+
+
+### Xcode
+
++ 安装各个版本的ios
+
+  Xcode — preferences — components
+
+  [iOS 模拟器系统版本更改](https://www.jianshu.com/p/a59ea0fbefdb)
+
+### webview踩坑
+
++ nodeList在ios10.2，android4.0以下，的原型链没有forEach方法。
++ jsbridge里的方法两端要一致，[jsbridge维护地址](http://doc.hz.netease.com/pages/viewpage.action?pageId=43580605)
+
+
+
+nej转webpack
+
+https://note.youdao.com/share/?token=EB1A52C50829484D8E1B440A4F6320ED&gid=12651257
+
+https://github.com/imhype/nej-loader
+
+### GIT
+
++ 删除远程分支 `git push origin --delete hotfix_dynamicPicTailor`
++ 删除本地分支 `git branch -D hotfix_dynamicPicTailor `
 
