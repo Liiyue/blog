@@ -147,25 +147,13 @@
 
     将xxx.sh文件拖入终端
 
-+ ​
+    ​
 
-  ​
 
 ### VSCode插件
 
 + [Jumpy](https://marketplace.visualstudio.com/items?itemName=wmaurer.vscode-jumpy) — 不用鼠标快速移动光标
 
-### 其他
-
-+ json支持注释： json5
-
-+ nunjucks在script标签中取变量
-
-  ```
-  var _env = '{{enviroment}}'
-  ```
-
-  ​
 
 
 ### Xcode
@@ -182,15 +170,21 @@
 + jsbridge里的方法两端要一致，[jsbridge维护地址](http://doc.hz.netease.com/pages/viewpage.action?pageId=43580605)
 
 
-
-nej转webpack
-
-https://note.youdao.com/share/?token=EB1A52C50829484D8E1B440A4F6320ED&gid=12651257
-
-https://github.com/imhype/nej-loader
-
 ### GIT
 
 + 删除远程分支 `git push origin --delete hotfix_dynamicPicTailor`
 + 删除本地分支 `git branch -D hotfix_dynamicPicTailor `
+
+
+### 其他
+
+- json支持注释： json5
+
+- nunjucks在script标签中取变量
+
+  ```
+  var _env = '{{enviroment}}'
+  ```
+
+  ​
 
