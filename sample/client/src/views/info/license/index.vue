@@ -1,7 +1,7 @@
 <template>
   <div class="n-companyInfo">
     <header class="f-cb">
-      <h1><i class="v-icon v-icon-square"></i>&nbsp;考拉网店经营者营业执照信息&nbsp;<i class="v-icon v-icon-square"></i></h1>
+      <h1><i class="v-icon v-icon-square"></i>&nbsp;''网店经营者营业执照信息&nbsp;<i class="v-icon v-icon-square"></i></h1>
       <p>根据国家工商总局《网络交易管理办法》要求对网店营业执照信息公示如下：</p>
     </header>
     <article>

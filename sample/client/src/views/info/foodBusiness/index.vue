@@ -1,7 +1,7 @@
 <template>
   <div class="n-companyInfo">
     <header class="f-cb">
-      <h1><i class="v-icon v-icon-square"></i>&nbsp;考拉网店食品经营者证照信息&nbsp;<i class="v-icon v-icon-square"></i></h1>
+      <h1><i class="v-icon v-icon-square"></i>&nbsp;''网店食品经营者证照信息&nbsp;<i class="v-icon v-icon-square"></i></h1>
       <p>根据《网络食品安全违法行为查处办法》要求对网店食品证照信息公示如下</p>
     </header>
     <article>
