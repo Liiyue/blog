@@ -28,6 +28,20 @@
 
   toString()方法返回一个字符串，该字符串由数组中每个元素的`toString()`返回值经调用`join()`方法连接组成。
 
++ Array.splice() | Array.slice()
+
+
+       Array.splice()会修改原数组，而Array.slice()不会
+
++ [Anchor href Property](https://www.w3schools.com/jsref/prop_anchor_href.asp)
+
+​    `<a>`标签的DOM Object的href属性返回的是完整的URL，包括协议头(比如 http://)。所以，即使href的值是相对路径，通过object.href取到的值也是完整的URL。
+
++ 如何获取字体大小[window.getComputedStyle](https://developer.mozilla.org/en-US/docs/Web/API/Window/getComputedStyle)
+
+  如果字体的font-size由样式表定义，则`document.getElementById('xxx').style.fontSize`会报""（空字符串）。可以使用`indow.getComputedStyle`来获取字体大小：
+
+  `window.getComputedStyle(el,null).getPropertyValue('font-size')`
 
 ### CSS
 
@@ -72,6 +86,94 @@
 
   + Display:none;会让元素从渲染
 
++ Writing-mode
+
+  > 用途：文本垂直排布；元素垂直居中
+
+  如何实现汉字+数字垂直：
+
+  ```
+  {
+    writing-mode: vertical-rl;
+    text-orientation: upright;
+  }
+  ```
+
+  ​
+
+  + [改变CSS世界纵横规则的writing-mode属性--张鑫旭](https://www.zhangxinxu.com/wordpress/2016/04/css-writing-mode/)
+  + [writing-mode draft](https://drafts.csswg.org/css-writing-modes-3/)
+  + [使用CSS实现文字的竖排](https://blog.csdn.net/wuyou1336/article/details/53414074)
+
++ 用css画一条0.5px的边框
+
+  + [CSS3如何实现0.5边框](https://juejin.im/post/5aa7834051882555770c21f5)
+
++ 用css邮票边框
+
+  + [css无图片技术总结](https://uedsky.com/2016-05/css-no-image/)
+  + [10个demo示例学会CSS3 radial-gradient径向渐变](https://www.zhangxinxu.com/wordpress/2017/11/css3-radial-gradient-syntax-example/)
+  + [[css3 邮票边缘风格](https://codepen.io/klovelovely/pen/aONmdJ)](https://codepen.io/klovelovely/pen/aONmdJ)
+
++ 去掉点击map里area的边框
+
+  ```
+  <img src="" usemap="#hotimg">
+  <map name="hotimg">
+      <area shape="rect" coords="" href="">
+  </map>
+  ```
+
+  ie7及以上，加以下css
+
+  ```
+  img[usemap], map area{
+      outline: none;
+  }
+  ```
+
+  ie7以下，除以上css外再给img加'hidefocus:true;'属性：
+
+  ```
+  <img src="" usemap="#hotimg" hidefocus="true">
+  ```
+
+  + [Removing outline on image map area](https://stackoverflow.com/questions/4821724/removing-outline-on-image-map-area)
+  + [html里，如何去掉点击map里area的边框](https://blog.csdn.net/new_gujiaming/article/details/24311995)
+
++ 禁止页面滑动
+
+
+同时给body与html加overflow: hidden。只给其中任意一个加是没有用的
+
+```
+body, html{
+  overflow: hidden;
+}
+
+document.body.style.overflowX = 'hidden';
+document.getElementsByTagName('html')[0].style.overflowX = 'hidden';  
+```
+
+
+
+### Safety
+
++ XSS
+
+  跨站脚本攻击，是代码注入的一种
+
+  + [根据白名单过滤HTML(防XSS攻击)](https://github.com/leizongmin/js-xss)
+  + ​
+
+
++ CSRF
+
+  跨站请求伪造；可以这么理解：攻击者盗取了你的身份信息，以你的名义发送恶意请求。
+
+  + [浅谈CSRF](http://www.cnblogs.com/hyddd/archive/2009/04/09/1432744.html)
+  + [面试大全 -- Safety](https://github.com/InterviewMap/InterviewMap/blob/master/Safety/safety-cn.md#csrf)
+
 ### Regular
 
 + 动态绑定class
@@ -108,7 +210,22 @@
   This.$get('xxx')
 
 
+### VUE
 
++ vue的生命周期
+
+  创建实例： beforeCreated(), created()
+
+  模板编译与挂载：beforeMounted(), mounted()
+
+  组件更新: beforeUpdated(); updated()
+
+  销毁组件：beforeDestroy(), destroyed()  这个钩子内可以移除事件监听
+
+  + [vue2生命周期与钩子函数](https://segmentfault.com/a/1190000008010666)
+  + [为什么要使用 el.destroy，而不在 unbind 钩子中直接移除监听？](https://vuejscaff.com/topics/153/why-use-eldestroy-instead-of-directly-listening-in-unbind-hooks)
+
+  ​
 
 ### Element-UI
 
@@ -117,9 +234,6 @@
   ```
   <el-input name="checkCode" type="text" @keyup.enter.native="handleLogin" v-model="checkCode" autoComplete="on" ></el-input>
   ```
-
-  ​
-
 
 
 
@@ -137,6 +251,40 @@
   command + option + i
   ```
 
++ 查看端口占用情况
+
+  Mac下使用lsof（list open files）来查看端口占用情况，lsof 是一个列出当前系统打开文件的工具。
+
+  使用 lsof 会列举所有占用的端口列表：
+
+  ```
+  $ lsof
+  ```
+
+  也可以使用 -i 查看某个端口是否被占用，如：
+
+  ```
+  $ lsof -i:3000
+  ```
+
+  如果端口被占用，则会返回相关信息，如果没被占用，则不返回任何信息。
+
++ 杀进程
+
+  `$ losf -i:3000`会显示其pid，要杀该进程，可以
+
+  ```
+  $ kill pid
+  ```
+
++ copy ssh
+
+  ```
+  $ cd .ssh
+  $ ls
+  $ cp id_rsa.pub /Users/yinliyue/Desktop
+  ```
+
 + 执行xxx.sh文件
 
   + 方法一：
@@ -147,8 +295,34 @@
 
     将xxx.sh文件拖入终端
 
-    ​
++ [安装tree插件](https://www.jianshu.com/p/e038506da986)
 
++ 使用命令行修改文件
+
+  ```
+  首先打开iTerm,切到文件所在的文件夹目录下
+  
+  cd xx
+  
+  然后进入编辑模式
+  
+  vim xx.xx
+  
+  然后插入修改
+  
+  shift + i
+  
+  修改之后退出插入模式
+  
+  esc
+  
+  保存退出
+  
+  shift + :  wq
+  
+  ```
+
+  
 
 ### VSCode插件
 
@@ -167,6 +341,12 @@
 ### webview踩坑
 
 + nodeList在ios10.2，android4.0以下，的原型链没有forEach方法。
+
+  ```
+  const nodelist = document.querySelectorAll('div');
+  const nodelistToArray = Array.prototype.slice.call(nodelist);
+  ```
+
 + jsbridge里的方法两端要一致，[jsbridge维护地址](http://doc.hz.netease.com/pages/viewpage.action?pageId=43580605)
 
 
@@ -174,11 +354,45 @@
 
 + 删除远程分支 `git push origin --delete hotfix_dynamicPicTailor`
 + 删除本地分支 `git branch -D hotfix_dynamicPicTailor `
++ git hook: husky
++ [校验commit msg](https://note.youdao.com/share/?token=8542444B36394A1597277BAABF2B05D6&gid=47492751)
 
+### NVM
+
++ [设置默认版本](https://eric.blog/2016/08/23/set-default-node-version-with-nvm/)
++ 
+
+### Charles
+
++ [mac端安装证书相关](https://blog.csdn.net/yarden0/article/details/78358299)
++ 
 
 ### 其他
 
 - json支持注释： json5
+
+- [修改chrome浏览器的user agent](https://blog.csdn.net/dengpeng0419/article/details/53591525)
+
+  机型选择 ==> edit ==> Devices ==> Add custom device 
+
+  > 判断微信内置浏览器主要通过 MicroMessenger 字段
+
+  ```
+  Mozilla/5.0 (Linux; Android 4.4.4; HM NOTE 1LTEW Build/KTU84P) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/33.0.0.0 Mobile Safari/537.36 MicroMessenger/6. 0.0.54_r849063.501 NetType/WIFI
+  ```
+
+- Typora图片显示过大
+  + 如何插入图片`![]()`
+  + 如何修改图片大小：修改markdown主题的.css文件。以Github主题为例：
+    + 打开设置
+    + 点击'open theme folder'
+    + 打开文件夹下的'github.css'文件
+    + 在文件中添加`img{zoom: 50%}`
+
+- 调试安卓真机
+
+  + [调试安卓真机](http://wiki.jikexueyuan.com/project/chrome-devtools/remote-debugging-on-android.html)
+  + [chrome远程调试andriod真机 -- chrome官方文档](https://developers.google.com/web/tools/chrome-devtools/remote-debugging/?hl=zh-cn)
 
 - nunjucks在script标签中取变量
 
@@ -186,5 +400,4 @@
   var _env = '{{enviroment}}'
   ```
 
-  ​
 

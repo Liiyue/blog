@@ -1,0 +1,6 @@
+/**
+ * scss 函数
+ */
+@function rem750($n) {
+    @return ($n/100) * 1rem;
+}

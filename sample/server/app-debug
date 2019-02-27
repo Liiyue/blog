@@ -1,0 +1,92 @@
+#!/usr/bin/env node
+
+const liveReload = require('live-reload-tool');
+const yargs = require('yargs');
+const chalk = require('chalk');
+const spawn = require('cross-spawn');
+const path = require('path');
+const fs = require('fs');
+
+const envs = {
+    local:'http://127.0.0.1:3033',
+    pop_test6jd: 'http://10.177.10.243:9204',
+};
+
+const handler = (addressingEnv, env, url, local, rpc) => {
+    // 显示当前已有的env配置
+    if(env === true) {
+        console.log(chalk.yellow('available environments:'));
+        console.log(envs);
+        return;
+    }
+
+    if(rpc === true) {
+        process.env.rpc = 1;
+    }
+
+    // addressing代理到某个地址
+    if(addressingEnv) {
+        process.env.KAOLA_ENV = addressingEnv;
+        process.env.EGG_SERVER_ENV = 'test';
+        process.env.isMockPre = addressingEnv.includes('pre') ? 1 : 0;
+        process.env.isAddressing = 1;
+    // 转发到某个地址
+    } else if(env || url || local) {
+        process.env.KAOLA_ENV = 'test';
+        process.env.EGG_SERVER_ENV = 'test';
+        process.env.proxyUrl = envs[env] || url || envs.local;
+        process.env.isMockPre = (env && env.includes('pre')) ? 1 : 0;
+        process.env.isProxy = 1;
+    } else {
+    // 纯mock
+        process.env.KAOLA_ENV = 'local';
+        process.env.EGG_SERVER_ENV = 'local';
+    }
+
+    if(!fs.existsSync(path.join(__dirname, '../app/dist/app.js'))) {
+        spawn.sync('npm', ['run', 'vue:dev'], { stdio: [0, 1, 2] });
+    }
+
+
+    spawn('npm', ['run', 'dev:all'], { stdio: [0, 1, 2] });
+    liveReload();
+};
+
+const { argv } = yargs
+    .usage('Usage: ./start | ./start -l | ./start -e feature1 | ./start -u http://10.240.177.151:3033')
+    // 代理到测试环境
+    .option('env', {
+        alias: 'e',
+        describe: 'specify a test environment to connect'
+    })
+    // 代理到测试环境
+    .option('addressingEnv', {
+        alias: 't',
+        describe: 'addressing to test environment'
+    })
+    // 代理到某个url
+    .option('url', {
+        alias: 'u',
+        describe: 'specify an url to connect'
+    })
+    // 代理到本地java机器
+    .option('local', {
+        alias: 'l',
+        boolean: 'l',
+        describe: 'local mode, proxy to http://127.0.0.1:3033'
+    })
+    .option('rpc', {
+        boolean: 'r',
+        alias: 'r',
+        describe: 'turn on jsonropc'
+    })
+    .alias('h', 'help')
+    .help('h');
+
+let { 
+    addressingEnv, env, url, local, rpc, help 
+} = argv;
+
+if (!help) {
+    handler(addressingEnv, env, url, local, rpc);
+}
