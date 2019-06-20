@@ -99,7 +99,7 @@
   }
   ```
 
-  ​
+  
 
   + [改变CSS世界纵横规则的writing-mode属性--张鑫旭](https://www.zhangxinxu.com/wordpress/2016/04/css-writing-mode/)
   + [writing-mode draft](https://drafts.csswg.org/css-writing-modes-3/)
@@ -164,7 +164,7 @@ document.getElementsByTagName('html')[0].style.overflowX = 'hidden';
   跨站脚本攻击，是代码注入的一种
 
   + [根据白名单过滤HTML(防XSS攻击)](https://github.com/leizongmin/js-xss)
-  + ​
+  + 
 
 
 + CSRF
@@ -225,17 +225,119 @@ document.getElementsByTagName('html')[0].style.overflowX = 'hidden';
   + [vue2生命周期与钩子函数](https://segmentfault.com/a/1190000008010666)
   + [为什么要使用 el.destroy，而不在 unbind 钩子中直接移除监听？](https://vuejscaff.com/topics/153/why-use-eldestroy-instead-of-directly-listening-in-unbind-hooks)
 
-  ​
++ Watch 的 val 与 oldVal相同问题
+
+  >注意：在变异 (不是替换) 对象或数组时，旧值将与新值相同，因为它们的引用指向同一个对象/数组。Vue 不会保留变异之前值的副本。
+
+  解决方法：
+
+  ```javascript
+  <div id="app">
+    <input type="text" v-for="(person, index) in people" v-model="people[index].age" />
+  </div>
+  
+  new Vue({
+    methods: {
+      setValue:function(){
+        this.$data.oldPeople=_.cloneDeep(this.$data.people);
+      },},
+      mounted() {
+        this.setValue();
+      },
+      el: '#app',
+      data: {
+        people: [
+        {id: 0, name: 'Bob', age: 27},
+        {id: 1, name: 'Frank', age: 32},
+        {id: 2, name: 'Joe', age: 38}
+        ],
+        oldPeople:[]
+      },
+      watch: {
+        people: {
+          handler: function (after, before) {
+          // Return the object that changed
+          var vm=this;
+          let changed = after.filter( function( p, idx ) {
+            return Object.keys(p).some( function( prop ) {
+             return p[prop] !== vm.$data.oldPeople[idx][prop];
+           })
+          })
+          // Log it
+          vm.setValue();
+          console.log(changed)
+        },
+        deep: true,
+      }
+    }
+  })
+  ```
+
+  
 
 ### Element-UI
 
 + 给组件加vue原生事件— .native
 
-  ```
+  ```html
   <el-input name="checkCode" type="text" @keyup.enter.native="handleLogin" v-model="checkCode" autoComplete="on" ></el-input>
   ```
 
 
+
+### WEBPACK
+
++ 使用webpack替换文件常量
+
+  解决办法：webpack.DefinePlugin
+
+  ```js
+  // 在webpack配置中添加
+  new webpack.DefinePlugin({
+  	'process.env.NODE_ENV': '"development"',
+      'process.env.webSocket': '"192.168.0.193"'
+  })
+  
+  // vuecli用法
+  config.plugin('define').tap(definitions => {
+      definitions[0] = Object.assign(definitions[0], {
+          'process.env.NODE_ENV': JSON.stringify('development'),
+      })
+      return definitions
+  })      
+  
+  ```
+
+  ```js
+  // 在js中使用
+  export const webSocketUrl = `ws://${process.env.webSocket}/notice/websocket`;
+  ```
+
+  ```js
+  // .eslintrc
+  "globals": {
+      "process.env.webSocket": true,
+  }
+  ```
+
++ [sass-resources-loader](https://github.com/shakacode/sass-resources-loader) 全局注册sass变量
+
+  ```js
+  // vue-cli webpack配置
+  const oneOfsMap = config.module.rule('scss').oneOfs.store
+  oneOfsMap.forEach(item => {
+  	item
+  		.use('sass-resources-loader')
+  		.loader('sass-resources-loader')
+  		.options({  
+  			// Provide array of paths to the files with resources
+  			resources: ['./src/scss/index.scss']
+  		})
+  		.end()
+  })
+  ```
+
+  
 
 ### Mac相关
 
@@ -366,6 +468,23 @@ document.getElementsByTagName('html')[0].style.overflowX = 'hidden';
 
 + [mac端安装证书相关](https://blog.csdn.net/yarden0/article/details/78358299)
 + 
+
+### TOMCAT
+
++ 基于域名的虚拟主机
+
+  > 基于域名的虚拟主机，可以在同一个IP上配置多个域名并且都通过80端口访问
+
+  如何访问：带Host头
+
+  方法一： 配置host
+
+  方法二：Modify Headers配置
+
+  ```
+  Name: Host
+  Value: w.kl.126.net
+  ```
 
 ### 其他
 

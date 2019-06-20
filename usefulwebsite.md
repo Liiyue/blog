@@ -3,7 +3,7 @@
 + [loading io](https://loading.io/)
 + [生成指定大小图片](https://dummyimage.com/)
 + [代码图片生成](https://carbon.now.sh)
-+ 
++ [ppt](https://www.beautiful.ai)
 
 
 
