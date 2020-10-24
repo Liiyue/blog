@@ -4,6 +4,10 @@
 + [生成指定大小图片](https://dummyimage.com/)
 + [代码图片生成](https://carbon.now.sh)
 + [ppt](https://www.beautiful.ai)
++ [免费字体库](https://www.fontspace.com/)
++ [中国色 - 中国颜色rgb](http://zhongguose.com/)
++ [日本色](https://nipponcolors.com/)
++ [AI抠图](https://www.remove.bg/zh)
 
 
 

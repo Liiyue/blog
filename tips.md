@@ -6,6 +6,8 @@
 
 + 正则校验url
 
+  [正则](https://zhuanlan.zhihu.com/p/73409780)
+
   ```
   // 需求：校验是否为kaola.com网址, 是否为http、https网址
   let url = 'http://m.kaola.com/activity/123.html'
@@ -42,6 +44,26 @@
   如果字体的font-size由样式表定义，则`document.getElementById('xxx').style.fontSize`会报""（空字符串）。可以使用`indow.getComputedStyle`来获取字体大小：
 
   `window.getComputedStyle(el,null).getPropertyValue('font-size')`
+  
++ `Object.is()判断两个值是否是相同的值`
+
+  与`==`的区别： `==`运算符会对它两边的操作数做隐式类型转换（如果它们类型不同），然后再进行相等性比较，但`Object.is`不会做这种转换。
+
+  与`===`的区别：`===`运算符将数字`-0`与`+0`视为相等；并认为`NaN`与`NaN`不相等
+
+  ```javascript
+  Object.is(NaN, NaN);  // true
+  NaN === NaN;  // false
+  
+  Object.is(+0, -0);  // false
+  +0 === -0;  // true
+  
+  Object.is('1', 1);  // false
+  '1' == 1;  // true
+  '1' === 1;  //false
+  ```
+
+  
 
 ### CSS
 
@@ -99,7 +121,6 @@
   }
   ```
 
-  
 
   + [改变CSS世界纵横规则的writing-mode属性--张鑫旭](https://www.zhangxinxu.com/wordpress/2016/04/css-writing-mode/)
   + [writing-mode draft](https://drafts.csswg.org/css-writing-modes-3/)
@@ -235,7 +256,7 @@ document.getElementsByTagName('html')[0].style.overflowX = 'hidden';
   <div id="app">
     <input type="text" v-for="(person, index) in people" v-model="people[index].age" />
   </div>
-  
+
   new Vue({
     methods: {
       setValue:function(){
@@ -273,7 +294,6 @@ document.getElementsByTagName('html')[0].style.overflowX = 'hidden';
   })
   ```
 
-  
 
 ### Element-UI
 
@@ -297,7 +317,7 @@ document.getElementsByTagName('html')[0].style.overflowX = 'hidden';
   	'process.env.NODE_ENV': '"development"',
       'process.env.webSocket': '"192.168.0.193"'
   })
-  
+
   // vuecli用法
   config.plugin('define').tap(definitions => {
       definitions[0] = Object.assign(definitions[0], {
@@ -305,7 +325,7 @@ document.getElementsByTagName('html')[0].style.overflowX = 'hidden';
       })
       return definitions
   })      
-  
+
   ```
 
   ```js
@@ -337,98 +357,146 @@ document.getElementsByTagName('html')[0].style.overflowX = 'hidden';
   })
   ```
 
-  
++ mocker-api
++ [webpack-bundle-analyzer](https://github.com/webpack-contrib/webpack-bundle-analyzer) 可视化展示所有打包文件大小及占比
 
 ### Mac相关
 
-+ mac自带中文输入法提示消失
+##### mac自带中文输入法提示消失
 
-  ```
-  pkill -f SCIM.app
-  ```
+```
+pkill -f SCIM.app
+```
 
-+ 打开chrome调试台
+##### 打开chrome调试台
 
-  ```
-  command + option + i
-  ```
+```
+command + option + i
+```
 
-+ 查看端口占用情况
+##### 查看端口占用情况
 
-  Mac下使用lsof（list open files）来查看端口占用情况，lsof 是一个列出当前系统打开文件的工具。
+Mac下使用lsof（list open files）来查看端口占用情况，lsof 是一个列出当前系统打开文件的工具。
 
-  使用 lsof 会列举所有占用的端口列表：
+使用 lsof 会列举所有占用的端口列表：
 
-  ```
-  $ lsof
-  ```
+```
+$ lsof
+```
 
-  也可以使用 -i 查看某个端口是否被占用，如：
+也可以使用 -i 查看某个端口是否被占用，如：
 
-  ```
-  $ lsof -i:3000
-  ```
+```
+$ lsof -i:3000
+```
 
-  如果端口被占用，则会返回相关信息，如果没被占用，则不返回任何信息。
+如果端口被占用，则会返回相关信息，如果没被占用，则不返回任何信息。
 
-+ 杀进程
+##### 杀进程
 
-  `$ losf -i:3000`会显示其pid，要杀该进程，可以
+`$ losf -i:3000`会显示其pid，要杀该进程，可以
 
-  ```
-  $ kill pid
-  ```
+```
+$ kill pid
+```
 
-+ copy ssh
+##### copy ssh
 
-  ```
-  $ cd .ssh
-  $ ls
-  $ cp id_rsa.pub /Users/yinliyue/Desktop
-  ```
+```
+$ cd .ssh
+$ ls
+$ cp id_rsa.pub /Users/yinliyue/Desktop
+```
 
-+ 执行xxx.sh文件
+##### 执行xxx.sh文件
 
-  + 方法一：
++ 方法一：
 
-    先cd到.sh所在文件目录；再执行命令： ./xxx.sh
+  先cd到.sh所在文件目录；再执行命令： ./xxx.sh
 
-  + 方法二：
++ 方法二：
 
-    将xxx.sh文件拖入终端
+  将xxx.sh文件拖入终端
 
-+ [安装tree插件](https://www.jianshu.com/p/e038506da986)
+##### [安装tree插件](https://www.jianshu.com/p/e038506da986)
 
-+ 使用命令行修改文件
+##### 使用命令行修改文件
 
-  ```
-  首先打开iTerm,切到文件所在的文件夹目录下
-  
-  cd xx
-  
-  然后进入编辑模式
-  
-  vim xx.xx
-  
-  然后插入修改
-  
-  shift + i
-  
-  修改之后退出插入模式
-  
-  esc
-  
-  保存退出
-  
-  shift + :  wq
-  
-  ```
+```
+首先打开iTerm,切到文件所在的文件夹目录下
 
-  
+cd xx
 
-### VSCode插件
+然后进入编辑模式
+
+vim xx.xx
+
+然后插入修改
+
+shift + i
+
+修改之后退出插入模式
+
+esc
+
+保存退出
+
+shift + :  wq
+
+```
+
+##### [git commit 后输入提交信息](https://www.cnblogs.com/wei325/p/5278922.html)
+
+git 在pull或者合并分支的时候有时会遇到这个界面。可以不管(直接下面3,4步)，如果要输入解释的话就需要:
+
+```
+1.按键盘字母 i 进入insert模式
+
+2.修改最上面那行黄色合并信息,可以不修改
+
+3.按键盘左上角"Esc"
+
+4.输入":wq",注意是冒号+wq,按回车键即可
+
+```
+
+##### chrome审查鼠标移入事件
+
+鼠标移入后，按(command + shift + c)
+
+### Linux
+
++ `cat`
+
++ `ls`
+
++ `ll`
+
+  不是Linux下基本命令，是`ls -l`的别名，`Ubuntu`默认不支持该命令。
+
+  结果说明：
+
+  > drwxr-xr-x  2 root root 48 2013-11-27 16:34 test
+  >
+  > 文件属性  文件个数 拥有者  所属的组  文件大小  最后一次修改时间  文件名
+
++ du (disk usage)
+
+  显示每个文件和目录的磁盘使用空间，也就是文件的大小。
+
+  `du -h `  以K M G为单位显示，提高可读性。
+
+  `du -h -d1` 只显示一级目录统计的空间占用。
+
+### VSCode
 
 + [Jumpy](https://marketplace.visualstudio.com/items?itemName=wmaurer.vscode-jumpy) — 不用鼠标快速移动光标
+
++ [使用VSCode调试egg.js]([https://eggjs.org/zh-cn/core/development.html#%E8%B0%83%E8%AF%95](https://eggjs.org/zh-cn/core/development.html#调试))
+
+  开启 VSCode 配置 `Debug: Toggle Auto Attach`，然后在 Terminal 执行 `npm run debug` 即可。
+
+  [more](https://code.visualstudio.com/docs/nodejs/nodejs-debugging)
 
 
 
@@ -451,13 +519,41 @@ document.getElementsByTagName('html')[0].style.overflowX = 'hidden';
 
 + jsbridge里的方法两端要一致，[jsbridge维护地址](http://doc.hz.netease.com/pages/viewpage.action?pageId=43580605)
 
+### GIT 
 
-### GIT
+[Git常用命令行](https://juejin.im/post/5eb2d6bce51d454d9d3ed14f?utm_source=gold_browser_extension)
 
-+ 删除远程分支 `git push origin --delete hotfix_dynamicPicTailor`
-+ 删除本地分支 `git branch -D hotfix_dynamicPicTailor `
++ 删除分支
+
+  + 删除远程分支 `git push origin --delete hotfix_dynamicPicTailor`
+  + 删除本地分支 `git branch -D hotfix_dynamicPicTailor `
+
++ 撤销commit
+
+  `git reset --soft HEAD^ ` 只撤回commit操作，但代码还保留。
+
+  如果只是commit注释写错了，只是想改下注释，只需要：`git commit --amend`
+
 + git hook: husky
+
 + [校验commit msg](https://note.youdao.com/share/?token=8542444B36394A1597277BAABF2B05D6&gid=47492751)
+
++ 给分支打tag
+
+  标签是版本库的一个快照（实际上就是指向某个commit的指针）。那既然有commit为什么还要有tag呢？commit号是串随机字符串，而tag可以是有语义化的版本号，便于记忆与沟通。
+
+  + 创建tag（一般是在master下）
+
+    ```
+    git tag -a v0.0.1 -m "v0.0.1"
+    git push origin v0.0.1
+    ```
+
+  + 删除tag
+
+    删除本地tag: `git tag -d v0.0.1`
+
+    删除远程tag: `git push origin --delete v0.0.1`
 
 ### NVM
 
